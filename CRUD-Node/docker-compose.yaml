@@ -1,0 +1,12 @@
+version: '3'
+services:
+  crud-node:
+    image: razzaksr/crud-node:latest
+    ports:
+      - "4433:4433"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"

@@ -1,0 +1,23 @@
+DELETE http://localhost:4433/67e5159153468bd2a280424c
+###
+PUT http://localhost:4433/update
+Content-Type: application/json
+
+{
+    "_id": "67e5159153468bd2a280424c",
+    "insurer_name": "Razak Mohamed",
+    "insurance_amount": 1000000,
+    "insurer_nominee":"Rajiya",
+    "__v": 0
+}
+###
+GET http://localhost:4433/
+###
+POST http://localhost:4433/
+Content-Type: application/json
+
+{
+    "insurer_name":"Rasheedha R Mohamed",
+    "insurer_nominee":"Mohamed",
+    "insurance_amount":1000000
+}

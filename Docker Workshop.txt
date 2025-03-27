@@ -1,0 +1,165 @@
+Docker Workshop - IT:
+27/03/2025
+
+OS:
+Application layer
+Kernel Layer
+Physical hardware
+
+Docker:
+	Virtualization tool of application layer
+
+Application:
+	source code
+	libraries
+	tools
+
+image:
+	all 3 together
+
+container:
+	instance of image/ execution of image
+
+
+Docker Registries:
+public:
+	dockerhub
+private:
+	aws, azure, gcp
+
+Contribution of Docker:
+1. Development
+2. Deployment
+
+
+Registry: hub.docker.com
+Client: Docker desktop
+docker deamon
+interaction tools:
+	cli
+	ui
+
+volume>> storage location
+network>> default, custom
+image
+container
+
+	
+Command line interface:
+check wsl version:
+wsl -l -v
+
+to update:
+wsl --update
+
+to set new wsl as default:
+wsl --set-default-version 2
+
+command to pull images:
+docker pull image:tag
+
+
+network:
+docker network create itdept
+volume:
+/data/usr
+
+
+1. Development:
+pulling mongo image:
+docker pull mongo:latest
+
+create container for mongo:
+docker run -d 
+-p 27017:27017 
+--name mec_mongo 
+-v /data/db:/data/db mongo:latest
+
+to check containers:
+docker container list
+docker ps
+docker ps -a
+
+
+execute the container:
+docker exec -it mec_mongo bash
+
+mongosh
+
+server: operations
+
+
+to stop container:
+docker stop mec_mongo
+
+to view containers:
+docker ps
+docker ps -a
+
+to remove container:
+docker remove mec_mongo
+
+to remove image:
+docker rmi mongo:latest
+
+
+1. Deployement:
+Building an CRUD backend of express using mongo image:
+
+CRUD-Node >> backend project
+
+convert project into docker image:
+1. create Dockerfile where all required configurations done, such as 
+language, 
+working directory, 
+copy and install modules from package.json
+execution flow
+
+2. build image:
+docker build -t razzaksr/crude-node .
+
+3. push into dockerhub account:
+docker push razzaksr/crud-node:latest
+
+4. to pull my image:
+docker pull razzaksr/crud-node
+
+create custom network:
+docker network create itdept
+
+5. create container for crud app
+docker run -d -p 4433:4433 --name Jothi --network itdept razzaksr/crud-node:latest
+
+6. execute the container
+docker exec -it Jothi bash
+
+7. create container for crud app
+docker run -d -p 27017:27017 --name mark --network itdept mongo:latest
+
+8. execute the container
+docker exec -it Jothi bash
+
+
+npm start
+
+
+
+
+
+
+9. compose
+docker-compose.yaml
+version: '3'
+services:
+  crud-node:
+    image: razzaksr/crud-node:latest
+    ports:
+      - "4433:4433"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+
