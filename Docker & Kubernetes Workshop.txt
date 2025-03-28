@@ -1,4 +1,4 @@
-Docker Workshop - IT:
+Docker & Kubernetes Workshop - IT:
 27/03/2025
 
 OS:
@@ -104,6 +104,10 @@ docker rmi mongo:latest
 
 
 1. Deployement:
+
+
+
+
 Building an CRUD backend of express using mongo image:
 
 CRUD-Node >> backend project
@@ -121,34 +125,41 @@ docker build -t razzaksr/crude-node .
 3. push into dockerhub account:
 docker push razzaksr/crud-node:latest
 
-4. to pull my image:
-docker pull razzaksr/crud-node
+Run mongo and express app as individual containers:
+1. create network
+docker network create NETWORKNAME
 
-create custom network:
-docker network create itdept
+2. create container for mongo
+docker run -d -p 27017:27017 -v /data/db:/data/db --network itdept --name base mongo:latest
 
-5. create container for crud app
-docker run -d -p 4433:4433 --name Jothi --network itdept razzaksr/crud-node:latest
+3. run container
 
-6. execute the container
-docker exec -it Jothi bash
+make sure the backend application's image has mentioned the container name of mongo in mongoose.connect(mongodb://base:27017)
 
-7. create container for crud app
-docker run -d -p 27017:27017 --name mark --network itdept mongo:latest
+4. pull express application:
+docker pull razzaksr/express-standalone:latest
 
-8. execute the container
-docker exec -it Jothi bash
+5. create container with same network
+docker run -d -p 4433:4433 --network itdept --name bajaj razzaksr/express-standalone:latest
 
-
-npm start
+6. execute / test http requests  and it will work perfectly
 
 
-
+Now combine mongo and express in same container
 
 
 
-9. compose
-docker-compose.yaml
+make sure the mongoose connect should replace by image not a container name
+mongoose.connect("mongodb://mongo:27017/crescent")
+
+image:
+razzaksr/crud-node:latest
+
+
+1. pull mongo and backend image as mentioned above
+
+2. create docker-compose.yaml s below:
+
 version: '3'
 services:
   crud-node:
@@ -161,5 +172,13 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+
+3. to run composed container:
+docker-compose up
+
+4. test your endpoints via http requests
+
+5. to shutdown the composed container
+docker-compose down
 
 
