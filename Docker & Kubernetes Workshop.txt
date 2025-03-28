@@ -182,3 +182,70 @@ docker-compose up
 docker-compose down
 
 
+
+
+
+
+
+
+
+
+Kubernetes:
+	container orchestration tool
+
+manage containers to ensure:
+	availability
+	recovery
+	scalability
+
+
+
+Monolithic vs microservice
+
+Kubernetes works based on  microservice
+
+architecture:
+interface: kubectl, ui
+master node: api server, control manager, scheduler, etcd
+
+components:
+pod, service, config, ingress, statefull, stateless, deployment, secret
+
+
+pod: abstract of container
+service: permenant logical ip irrespective of count of pods
+config: non risky config 
+secret: credentials
+deployments: blue print of stateless pod config 
+sfs: statefull set>> database
+
+
+
+Cloud:
+AWS, GCP, Azure
+
+Free/ Local:
+minikube
+
+Docker based image
+
+prerequisite : docker desktop
+
+download minikube from official website
+
+check minikube:
+minikube version
+
+start minikube via docker:
+minikube start --driver docker
+
+minikube getting downloaded
+
+once started check the following:
+kubectl version
+
+to stop minukube container:
+minikube stop
+
+
+
