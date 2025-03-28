@@ -249,3 +249,49 @@ minikube stop
 
 
 
+create yaml files of following:
+mongo-config.yaml
+mongo.yaml: deployment and service where service name must be resused in backend application's mongoose connect portion like 
+mongoose.connect(mongodb://mongo-service:27017)
+
+then pull following image:
+razzaksr/express-stand-kube:latest
+
+create deployment and service for express image
+
+apply yaml into Kubernetes
+
+kubectl apply -f NAMEOFYAML
+
+check all :
+kubectl get all
+
+check pods:
+kubectl get pod
+
+check service:
+kubectl get service
+
+check specific pod:
+kubectl describe pod PODID
+
+check specific service:
+kubectl describe service SERVICEID
+
+Port forwarding to run backend:
+kubectl port-forward svc/express-application-service 4433:4433
+
+check endpoints via http:
+
+to delete service:
+kubectl delete service SERVICEID
+
+to delete pod:
+kubectl delete pod PODID
+
+to stop minikube:
+minikube stop
+
+
+
+

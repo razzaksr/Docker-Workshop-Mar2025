@@ -39,4 +39,4 @@ spec:
     - protocol: TCP
       port: 4433
       targetPort: 4433
-      NodePort: 32749
+      nodePort: 32749
